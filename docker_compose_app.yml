@@ -1,0 +1,18 @@
+services:
+  ${CONTAINER_NAME}:
+    build: .
+    ports:
+      - "${PORT:-8000}:8000"
+    volumes:
+      - ./app:/app
+    env_file:
+      - .env
+    deploy:
+      resources:
+        limits:
+          memory: ${MEM:-1g}
+          disk: ${DISK_SIZE:-10g}
+        reservations:
+          memory: ${MEM_RESERVATION:-512m}
+          disk: ${DISK_RESERVATION:-5g}
+    shm_size: ${SHM_SIZE:-1g}

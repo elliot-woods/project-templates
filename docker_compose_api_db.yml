@@ -1,0 +1,45 @@
+services:
+  ${CONTAINER_NAME}:
+    build: .
+    ports:
+      - "${PORT:-8000}:8000"
+    volumes:
+      - ./data:/api/data
+    env_file:
+      - .env
+    depends_on:
+      - db
+    deploy:
+      resources:
+        limits:
+          memory: ${MEM:-1g}
+          disk: ${DISK_SIZE:-10g}
+        reservations:
+          memory: ${MEM_RESERVATION:-512m}
+          disk: ${DISK_RESERVATION:-5g}
+    shm_size: ${SHM_SIZE:-1g}
+
+  ${CONTAINER_NAME}-db:
+    image: ankane/pgvector:latest
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          memory: ${DB_MEM:-1g}
+          disk: ${DB_DISK_SIZE:-20g}
+        reservations:
+          memory: ${DB_MEM_RESERVATION:-512m}
+          disk: ${DB_DISK_RESERVATION:-10g}
+    shm_size: ${DB_SHM_SIZE:-1g}
+
+volumes:
+  postgres_data: 
