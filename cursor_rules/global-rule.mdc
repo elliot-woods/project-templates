@@ -19,6 +19,7 @@ More often than not, opt in to adding more logging and tracing to the code to he
 
 If provided markdown files, make sure to read them as reference for how to structure your code. Do not update the markdown files at all. Only use them for reference and examples of how to structure your code.
 
+NEVER create a README file unless explicitly told to do so
 
 1. **Verify Information**: Always verify information before presenting it. Do not make assumptions or speculate without clear evidence. USE CLI COMMANDS TO FIND OUT MORE INFORMATION ABOUT THE PATHS, CONTENT OF FILES, DOCKER CONTAINER, ETC
 
